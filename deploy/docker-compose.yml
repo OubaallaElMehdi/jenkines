@@ -38,7 +38,7 @@ services:
       - microservices-network
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      EUREKA_INSTANCE_HOSTNAME: eureka-server
+      EUREKA_INSTANCE_HOSTNAME: ${EUREKA_HOST:-eureka-server}
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: 'false'
       EUREKA_CLIENT_FETCH_REGISTRY: 'false'
 
@@ -58,7 +58,7 @@ services:
     networks:
       - microservices-network
     environment:
-      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://${EUREKA_HOST:-eureka-server}:${EUREKA_PORT:-8761}/eureka/
       SPRING_CLOUD_CONSUL_HOST: ${CONSUL_HOST:-consul}
       SPRING_CLOUD_CONSUL_PORT: ${CONSUL_PORT:-8500}
 
@@ -80,7 +80,7 @@ services:
     networks:
       - microservices-network
     environment:
-      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://${EUREKA_HOST:-eureka-server}:${EUREKA_PORT:-8761}/eureka/
       SPRING_CLOUD_CONSUL_HOST: ${CONSUL_HOST:-consul}
       SPRING_CLOUD_CONSUL_PORT: ${CONSUL_PORT:-8500}
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL_CLIENT}
@@ -105,7 +105,7 @@ services:
     networks:
       - microservices-network
     environment:
-      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE: http://${EUREKA_HOST:-eureka-server}:${EUREKA_PORT:-8761}/eureka/
       SPRING_CLOUD_CONSUL_HOST: ${CONSUL_HOST:-consul}
       SPRING_CLOUD_CONSUL_PORT: ${CONSUL_PORT:-8500}
       SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL_CAR}
@@ -121,7 +121,7 @@ services:
       PMA_PORT: ${MYSQL_PORT:-3306}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
-      - "${PHPMYADMIN_PORT:-8082}:80"
+      - "${PHPMYADMIN_PORT:-8082}:80" # Updated port to 8082
     networks:
       - microservices-network
 
