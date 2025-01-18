@@ -1,7 +1,4 @@
-version: '3.8'
-
 services:
-  # Service MySQL
   mysql:
     image: mysql:latest
     container_name: mysql-container1
@@ -18,7 +15,6 @@ services:
       timeout: 5s
       retries: 5
 
-  # Service Consul
   consul:
     image: consul:1.15.4
     container_name: consul-container
@@ -27,7 +23,6 @@ services:
     networks:
       - microservices-network
 
-  # Service Eureka
   eureka-server:
     build:
       context: ../server_eureka
@@ -42,7 +37,6 @@ services:
       EUREKA_CLIENT_REGISTER_WITH_EUREKA: 'false'
       EUREKA_CLIENT_FETCH_REGISTRY: 'false'
 
-  # Service Gateway
   gateway-service:
     build:
       context: ../gateway
@@ -62,7 +56,6 @@ services:
       SPRING_CLOUD_CONSUL_HOST: ${CONSUL_HOST:-consul}
       SPRING_CLOUD_CONSUL_PORT: ${CONSUL_PORT:-8500}
 
-  # Service Client
   client-service:
     build:
       context: ../client
@@ -87,7 +80,6 @@ services:
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
 
-  # Service Voiture
   voiture-service:
     build:
       context: ../car
@@ -112,7 +104,6 @@ services:
       SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
       SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
 
-  # Service phpMyAdmin
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin-container
